@@ -1,0 +1,91 @@
+/*=========================================================
+    CINERAMATV LIVE
+    Design System
+    Version 1.0
+=========================================================*/
+
+:root{
+
+    /* Backgrounds */
+
+    --bg:#08111b;
+
+    --bg-soft:#0f1a29;
+
+    --header:#121f30;
+
+    --card:#152235;
+
+    /* Text */
+
+    --text:#f5f8fb;
+
+    --text-soft:#bfd0de;
+
+    /* Accent */
+
+    --primary:#f39c35;
+
+    --primary-hover:#ffb347;
+
+    /* Status */
+
+    --success:#2ecc71;
+
+    --danger:#e74c3c;
+
+    --warning:#f1c40f;
+
+    /* Border */
+
+    --border:#233449;
+
+    /* Shadow */
+
+    --shadow:0 10px 35px rgba(0,0,0,.30);
+
+    /* Radius */
+
+    --radius-sm:6px;
+
+    --radius:12px;
+
+    --radius-lg:20px;
+
+    --radius-xl:30px;
+
+    /* Width */
+
+    --container:1280px;
+
+    /* Transition */
+
+    --transition:.30s ease;
+
+}
+
+/*==========================
+        LIGHT MODE
+==========================*/
+
+[data-theme="light"]{
+
+    --bg:#eaf0f6;
+
+    --bg-soft:#f7f9fc;
+
+    --header:#ffffff;
+
+    --card:#ffffff;
+
+    --text:#122033;
+
+    --text-soft:#516173;
+
+    --primary:#f39c35;
+
+    --primary-hover:#ffb347;
+
+    --border:#d9dfe8;
+
+}

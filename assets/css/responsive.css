@@ -1,0 +1,80 @@
+/*=========================================================
+    RESPONSIVE
+=========================================================*/
+
+@media(max-width:768px){
+
+    h1{
+
+        font-size:2rem;
+
+    }
+
+    h2{
+
+        font-size:1.7rem;
+
+    }
+
+}
+@media(max-width:900px){
+
+.menu{
+
+display:none;
+
+}
+
+.menu-mobile{
+
+display:block;
+
+}
+
+}
+
+@media(max-width:900px){
+
+nav{
+
+position:fixed;
+
+top:80px;
+
+right:-100%;
+
+width:280px;
+
+height:calc(100vh - 80px);
+
+background:var(--header);
+
+transition:.35s;
+
+padding:40px;
+
+}
+
+nav.show{
+
+right:0;
+
+}
+
+.menu{
+
+display:flex;
+
+flex-direction:column;
+
+gap:30px;
+
+}
+
+.menu-mobile{
+
+display:block;
+
+}
+
+}

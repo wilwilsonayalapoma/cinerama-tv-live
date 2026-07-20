@@ -1,0 +1,497 @@
+/*=========================================================
+    COMPONENTS
+=========================================================*/
+
+/* Se agregará en la siguiente fase */
+/*=========================================================
+    CINERAMA TV LIVE
+    COMPONENT LIBRARY
+=========================================================*/
+
+/* =========================
+   BOTONES
+========================= */
+
+.btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:.5rem;
+
+    padding:14px 30px;
+
+    border-radius:var(--radius);
+
+    transition:var(--transition);
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+.btn-primary{
+
+    background:var(--primary);
+
+    color:#fff;
+
+}
+
+.btn-primary:hover{
+
+    background:var(--primary-hover);
+
+    transform:translateY(-2px);
+
+}
+
+.btn-outline{
+
+    border:2px solid var(--primary);
+
+    color:var(--primary);
+
+}
+
+.btn-outline:hover{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+
+/* =========================
+   TITULOS
+========================= */
+
+.section-title{
+
+    text-align:center;
+
+    margin-bottom:50px;
+
+}
+
+.section-title h2{
+
+    font-size:2.5rem;
+
+}
+
+.section-title p{
+
+    max-width:700px;
+
+    margin:auto;
+
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+
+    background:var(--card);
+
+    border-radius:var(--radius);
+
+    padding:25px;
+
+    box-shadow:var(--shadow);
+
+}
+
+/* =========================
+   BADGE
+========================= */
+
+.badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:.5rem;
+
+    padding:8px 18px;
+
+    border-radius:50px;
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+}
+
+.badge-live{
+
+    background:#ff000020;
+
+    color:#ff4d4d;
+
+}
+
+/* =========================
+   DIVIDER
+========================= */
+
+.divider{
+
+    width:100%;
+
+    height:1px;
+
+    background:var(--border);
+
+    margin:60px 0;
+
+}
+
+/* =========================
+   PUBLICIDAD
+========================= */
+
+.ad-box{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:var(--bg-soft);
+
+    border:2px dashed var(--border);
+
+    border-radius:var(--radius);
+
+    min-height:250px;
+
+    color:var(--text-soft);
+
+    font-size:1.1rem;
+
+}
+
+/*=========================================
+TOP BANNER
+=========================================*/
+
+.top-banner{
+
+    background:var(--bg);
+
+    padding:10px 0;
+
+}
+
+.banner-link{
+
+    display:block;
+
+}
+
+.banner-image{
+
+    width:100%;
+
+    max-height:120px;
+
+    object-fit:cover;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    transition:.35s;
+
+    box-shadow:var(--shadow);
+
+}
+
+.banner-image:hover{
+
+    transform:scale(1.01);
+
+}
+
+/*=========================
+HEADER
+=========================*/
+
+.header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:999;
+
+    backdrop-filter:blur(15px);
+
+    background:rgba(18,31,48,.90);
+
+    border-bottom:1px solid rgba(255,255,255,.05);
+
+}
+
+/*=========================
+NAVBAR
+=========================*/
+
+.navbar{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    height:80px;
+
+}
+
+/*=========================
+LOGO
+=========================*/
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.logo h2{
+
+    margin:0;
+
+    color:white;
+
+}
+
+.logo small{
+
+    color:var(--primary);
+
+    letter-spacing:3px;
+
+}
+
+.play{
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:white;
+
+}
+
+/*=========================
+MENU
+=========================*/
+
+.menu{
+
+    display:flex;
+
+    gap:40px;
+
+}
+
+.menu a{
+
+    color:var(--text-soft);
+
+    transition:.3s;
+
+    font-weight:500;
+
+}
+
+.menu a:hover{
+
+    color:var(--primary);
+
+}
+
+/*=========================
+RIGHT
+=========================*/
+
+.header-right{
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+.theme-btn,
+
+.menu-mobile{
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:50%;
+
+    background:var(--bg-soft);
+
+    color:white;
+
+    transition:.3s;
+
+}
+
+.theme-btn:hover,
+
+.menu-mobile:hover{
+
+    background:var(--primary);
+
+}
+
+.menu-mobile{
+
+    display:none;
+
+}
+
+
+/*=========================
+LOGO NUEVO
+=========================*/
+
+.logo{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+}
+
+.logo-icon{
+
+width:55px;
+
+height:55px;
+
+border-radius:50%;
+
+background:linear-gradient(135deg,#f39c35,#ffb347);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:22px;
+
+color:white;
+
+box-shadow:0 10px 20px rgba(243,156,53,.25);
+
+}
+
+.logo-text{
+
+display:flex;
+
+flex-direction:column;
+
+}
+
+.title{
+
+font-size:22px;
+
+font-weight:700;
+
+letter-spacing:2px;
+
+}
+
+.live{
+
+font-size:12px;
+
+letter-spacing:5px;
+
+color:var(--primary);
+
+}
+
+/*=========================
+HEADER SCROLL
+=========================*/
+
+.header.scrolled{
+
+box-shadow:0 5px 20px rgba(0,0,0,.30);
+
+background:rgba(18,31,48,.97);
+
+}
+#topBtn{
+
+position:fixed;
+
+right:30px;
+
+bottom:30px;
+
+width:50px;
+
+height:50px;
+
+border-radius:50%;
+
+background:var(--primary);
+
+color:white;
+
+display:none;
+
+z-index:999;
+
+box-shadow:var(--shadow);
+
+}
+
+
+
+#topBtn.show{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+}

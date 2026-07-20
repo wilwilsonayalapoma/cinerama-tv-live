@@ -1,0 +1,272 @@
+/*====================================================
+    CINERAMATV LIVE
+    PLAYER COMPONENT
+====================================================*/
+
+
+.live-section{
+
+    padding:80px 0;
+
+}
+
+
+/* TITULO */
+
+.live-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:15px;
+
+    margin-bottom:30px;
+
+}
+
+
+.live-header h2{
+
+    margin:0;
+
+}
+
+
+
+/* BADGE LIVE */
+
+.live-badge{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    background:#e74c3c;
+
+    color:white;
+
+    padding:8px 18px;
+
+    border-radius:50px;
+
+    font-size:.85rem;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+}
+
+
+.live-dot{
+
+    width:10px;
+
+    height:10px;
+
+    background:white;
+
+    border-radius:50%;
+
+    animation:pulse 1.5s infinite;
+
+}
+
+
+
+/* CONTENEDOR VIDEO */
+
+
+.player-container{
+
+    width:100%;
+
+    aspect-ratio:16/9;
+
+    background:#000;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:var(--shadow);
+
+    position:relative;
+
+}
+
+
+
+/* PLACEHOLDER */
+
+.player-placeholder{
+
+    width:100%;
+
+    height:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-direction:column;
+
+    color:#fff;
+
+}
+
+
+.player-placeholder i{
+
+    font-size:60px;
+
+    color:var(--primary);
+
+    margin-bottom:20px;
+
+}
+
+
+
+/* INFORMACION */
+
+
+.live-info{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:40px;
+
+    margin-top:25px;
+
+    color:var(--text-soft);
+
+}
+
+
+.live-info span{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+
+
+/* ANIMACION */
+
+
+@keyframes pulse{
+
+
+0%{
+
+transform:scale(1);
+
+opacity:1;
+
+}
+
+
+50%{
+
+transform:scale(1.4);
+
+opacity:.5;
+
+}
+
+
+100%{
+
+transform:scale(1);
+
+opacity:1;
+
+}
+
+
+}
+
+
+/*==========================================
+VIDEO.JS
+==========================================*/
+
+.player-container video{
+
+    width:100%;
+
+    height:100%;
+
+}
+
+.video-js{
+
+    width:100% !important;
+
+    height:100% !important;
+
+    background:#000;
+
+}
+
+.video-js .vjs-big-play-button{
+
+    border-radius:50%;
+
+}
+
+.video-js .vjs-control-bar{
+
+    background:rgba(0,0,0,.65);
+
+}
+
+.video-js .vjs-loading-spinner{
+
+    border-color:#ff0000;
+
+}
+
+/*=====================================
+VIDEO HTML5
+=====================================*/
+
+.player-container video{
+
+    width:100%;
+
+    height:100%;
+
+    display:block;
+
+    background:#000;
+
+}
+
+.player-container{
+
+    border:2px solid rgba(243,156,53,.25);
+
+}
+
+.player-container:hover{
+
+    border-color:#f39c35;
+
+    transition:.3s;
+
+}

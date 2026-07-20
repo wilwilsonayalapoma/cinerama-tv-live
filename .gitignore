@@ -1,0 +1,15 @@
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Dependencias futuras
+node_modules/
+
+# Variables de entorno (para futuras versiones)
+.env

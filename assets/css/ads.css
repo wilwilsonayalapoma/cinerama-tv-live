@@ -1,0 +1,152 @@
+/*====================================================
+    CINERAMATV
+    ADVERTISEMENT COMPONENT
+====================================================*/
+
+
+.ads-section{
+
+    padding:50px 0;
+
+}
+
+
+
+/* BANNER */
+
+.ad-banner{
+
+    width:100%;
+
+    min-height:120px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    border-radius:18px;
+
+    background:var(--bg-soft);
+
+    box-shadow:var(--shadow);
+
+}
+
+
+
+.ad-banner img{
+
+    width:100%;
+
+    height:auto;
+
+    object-fit:cover;
+
+}
+
+
+
+/* TITULO */
+
+.ads-title{
+
+    text-align:center;
+
+    margin-bottom:35px;
+
+}
+
+
+
+.ads-title h2{
+
+    font-size:2rem;
+
+}
+
+
+
+.ads-title p{
+
+    color:var(--text-soft);
+
+}
+
+
+
+/* GRID PUBLICIDAD */
+
+
+.ads-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:25px;
+
+}
+
+
+
+/* CARD */
+
+
+.ad-card{
+
+    background:var(--card);
+
+    padding:20px;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    border:1px solid var(--border);
+
+}
+
+
+
+.ad-card img{
+
+    width:100%;
+
+    border-radius:12px;
+
+}
+
+
+
+.ad-card span{
+
+    display:block;
+
+    margin-top:15px;
+
+    color:var(--text-soft);
+
+    font-size:.9rem;
+
+}
+
+
+
+/* RESPONSIVE */
+
+
+@media(max-width:900px){
+
+
+.ads-grid{
+
+grid-template-columns:1fr;
+
+}
+
+
+}
