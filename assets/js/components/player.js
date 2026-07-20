@@ -8,17 +8,6 @@ class LivePlayer extends HTMLElement {
 
     <div class="container">
 
-        <div class="live-header">
-
-            <span class="live-badge">
-                <span class="live-dot"></span>
-                EN VIVO
-            </span>
-
-            <h2>CineramaTV Live</h2>
-
-        </div>
-
         <div class="player-container">
 
             <video
@@ -60,7 +49,11 @@ class LivePlayer extends HTMLElement {
 
         const video = document.getElementById("liveVideo");
 
-        const stream = "/hls/stream.m3u8";
+        const isLocal = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+
+        const stream = isLocal
+            ? "https://tv.cineramatvbo.com/hls/stream.m3u8"
+            : "/hls/stream.m3u8";
 
         if (Hls.isSupported()) {
 

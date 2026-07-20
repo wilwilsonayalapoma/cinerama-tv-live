@@ -11,74 +11,6 @@
 }
 
 
-/* TITULO */
-
-.live-header{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:15px;
-
-    margin-bottom:30px;
-
-}
-
-
-.live-header h2{
-
-    margin:0;
-
-}
-
-
-
-/* BADGE LIVE */
-
-.live-badge{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    background:#e74c3c;
-
-    color:white;
-
-    padding:8px 18px;
-
-    border-radius:50px;
-
-    font-size:.85rem;
-
-    font-weight:700;
-
-    letter-spacing:1px;
-
-}
-
-
-.live-dot{
-
-    width:10px;
-
-    height:10px;
-
-    background:white;
-
-    border-radius:50%;
-
-    animation:pulse 1.5s infinite;
-
-}
-
-
-
 /* CONTENEDOR VIDEO */
 
 
@@ -163,42 +95,6 @@
 
 }
 
-
-
-/* ANIMACION */
-
-
-@keyframes pulse{
-
-
-0%{
-
-transform:scale(1);
-
-opacity:1;
-
-}
-
-
-50%{
-
-transform:scale(1.4);
-
-opacity:.5;
-
-}
-
-
-100%{
-
-transform:scale(1);
-
-opacity:1;
-
-}
-
-
-}
 
 
 /*==========================================
