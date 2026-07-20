@@ -60,7 +60,7 @@ class LivePlayer extends HTMLElement {
 
         const video = document.getElementById("liveVideo");
 
-        const stream = "http://tv.cineramatvbo.com/hls/stream.m3u8";
+        const stream = "/hls/stream.m3u8";
 
         if (Hls.isSupported()) {
 
