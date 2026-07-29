@@ -198,7 +198,8 @@ TOP BANNER
 
 }
 
-.banner-image{
+.banner-image,
+.banner-video{
 
     width:100%;
 
@@ -216,7 +217,8 @@ TOP BANNER
 
 }
 
-.banner-image:hover{
+.banner-image:hover,
+.banner-video:hover{
 
     transform:scale(1.01);
 

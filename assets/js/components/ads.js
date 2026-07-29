@@ -75,13 +75,23 @@ Espacios publicitarios CineramaTV
 <div class="ad-banner">
 
 
-<img
+<video
+autoplay
+muted
+loop
+playsinline
+preload="metadata"
+aria-label="Publicidad CineramaTV">
 
-src="assets/img/publicidad/video-banner-condor.gif"
+<source
+src="assets/video/video-banner-condor.webm"
+type="video/webm">
 
-alt="Publicidad CineramaTV"
+<source
+src="assets/video/video-banner-condor.mp4"
+type="video/mp4">
 
->
+</video>
 
 
 </div>
