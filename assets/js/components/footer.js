@@ -92,7 +92,7 @@ Enlaces
 
 <li>
 
-<a href="#">
+<a href="./">
 Inicio
 </a>
 
@@ -101,7 +101,9 @@ Inicio
 
 <li>
 
-<a href="#">
+<a href="https://www.facebook.com/profile.php?id=61563319227532"
+target="_blank"
+rel="noopener noreferrer">
 Noticias
 </a>
 
@@ -110,7 +112,9 @@ Noticias
 
 <li>
 
-<a href="#">
+<a href="https://wa.me/59170662404"
+target="_blank"
+rel="noopener noreferrer">
 Contactos
 </a>
 
@@ -142,7 +146,10 @@ Síguenos
 <div class="social-links">
 
 
-<a href="#">
+<a href="https://www.facebook.com/profile.php?id=61563319227532"
+target="_blank"
+rel="noopener noreferrer"
+aria-label="Facebook">
 
 <i class="fa-brands fa-facebook"></i>
 
@@ -150,7 +157,21 @@ Síguenos
 
 
 
-<a href="#">
+<a href="https://www.tiktok.com/@cineramatv11.4?is_from_webapp=1&amp;sender_device=pc"
+target="_blank"
+rel="noopener noreferrer"
+aria-label="TikTok">
+
+<i class="fa-brands fa-tiktok"></i>
+
+</a>
+
+
+
+<a href="https://youtube.com/@cineramatv.multimedia?si=LN5MvPlts7qeIAM1"
+target="_blank"
+rel="noopener noreferrer"
+aria-label="YouTube">
 
 <i class="fa-brands fa-youtube"></i>
 
@@ -159,7 +180,10 @@ Síguenos
 
 
 
-<a href="#">
+<a href="https://www.instagram.com/cineramatv/"
+target="_blank"
+rel="noopener noreferrer"
+aria-label="Instagram">
 
 <i class="fa-brands fa-instagram"></i>
 

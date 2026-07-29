@@ -67,49 +67,56 @@ La Paz - Bolivia
 
 
 
-<div class="contact-item">
+<a class="contact-item"
+href="https://wa.me/59170662404"
+target="_blank"
+rel="noopener noreferrer">
 
 <i class="fa-brands fa-whatsapp"></i>
 
 <span>
 
 WhatsApp:
-+591 XXXXXXXX
++591 70662404
 
 </span>
 
-</div>
+</a>
 
 
 
 
 
-<div class="contact-item">
+<a class="contact-item"
+href="mailto:contacto@cineramatvbo.com">
 
 <i class="fa-solid fa-envelope"></i>
 
 <span>
 
-contacto@cineramatv.com
+contacto@cineramatvbo.com
 
 </span>
 
-</div>
+</a>
 
 
 
 
-<div class="contact-item">
+<a class="contact-item"
+href="https://www.cineramatvbo.com/"
+target="_blank"
+rel="noopener noreferrer">
 
 <i class="fa-solid fa-globe"></i>
 
 <span>
 
-www.cineramatv.com
+www.cineramatvbo.com
 
 </span>
 
-</div>
+</a>
 
 
 

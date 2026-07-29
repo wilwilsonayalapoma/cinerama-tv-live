@@ -23,11 +23,6 @@ class LivePlayer extends HTMLElement {
 
         <div class="live-info">
 
-            <span>
-                <i class="fa-solid fa-users"></i>
-                <span id="viewerCount">0</span> espectadores
-            </span>
-
             <span id="streamStatus">
                 <i class="fa-solid fa-signal"></i>
                 Conectando...
