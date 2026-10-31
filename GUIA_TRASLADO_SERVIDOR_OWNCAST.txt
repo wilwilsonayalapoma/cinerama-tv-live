@@ -10,12 +10,17 @@ Arquitectura que está funcionando
 - Nginx publica solo el HLS en 127.0.0.1:8090 y devuelve 404 en la raíz.
 - Cloudflare Tunnel conecta hacia http://127.0.0.1:8090 y da HTTPS público:
   https://tv.cineramatvbo.com/hls/stream.m3u8
+- ZeroTier enlaza la PC vMix de Pampahasi con Ubuntu en Tembladerani. IP actual
+  ZeroTier del servidor: 10.242.75.43. IP actual de la PC vMix: 10.242.75.76.
+- Network ID ZeroTier: f3797ba7a885b53d.
 - El DNS del dominio lo administra Cloudflare. El dominio sigue registrado en
   Namecheap.
 
 IMPORTANTE: El túnel evita abrir puertos entrantes y no necesita una IP pública
 fija. Ubuntu debe tener Internet y cloudflared debe estar activo. La capacidad
 de espectadores depende de la velocidad de subida de Internet en la nueva casa.
+ZeroTier transporta la contribución RTMP privada; Cloudflare Tunnel continúa
+publicando HLS para los espectadores.
 
 ANTES DE MOVER EL EQUIPO
 -----------------------
@@ -27,6 +32,8 @@ ANTES DE MOVER EL EQUIPO
 4. Si es posible, apaga Ubuntu correctamente:
    sudo poweroff
 5. En la nueva casa, conecta Ubuntu por cable Ethernet al router y enciéndelo.
+6. ZeroTier no depende de la IP LAN del router. Comprueba que el servicio siga
+   activo y que el servidor conserve su membresía ZeroTier.
 
 PRIMERA COMPROBACIÓN EN LA NUEVA RED
 ------------------------------------
@@ -52,6 +59,16 @@ Los tres deben responder "active". Si alguno no está activo:
   sudo systemctl status owncast --no-pager
   sudo systemctl status nginx --no-pager
   sudo systemctl status cloudflared --no-pager
+
+Comprueba ZeroTier:
+  sudo systemctl is-active zerotier-one
+  sudo zerotier-cli status
+  sudo zerotier-cli listnetworks
+
+El daemon debe responder active, `zerotier-cli status` debe incluir ONLINE y
+la red f3797ba7a885b53d debe aparecer OK con una IP administrada. IP actual del
+Ubuntu: 10.242.75.43. Si reinstalas Ubuntu o aparece un miembro nuevo, autorízalo
+en ZeroTier Central. No compartas tokens de ZeroTier Central.
 
 Verifica Owncast y Nginx localmente:
   curl -sS -o /dev/null -w 'Owncast HTTP %{http_code}\n' http://127.0.0.1:8080/hls/stream.m3u8
@@ -79,21 +96,30 @@ está activo; eso puede arrancar una segunda instancia. No muestres el contenido
 de /etc/cloudflared/token.
 
 CONFIGURAR vMix EN LA PC WINDOWS
--------------------------------
-1. Conecta la PC Windows de vMix a la misma red del router (preferiblemente por
-   cable Ethernet).
-2. Identifica la IP LAN nueva de Ubuntu con `hostname -I`.
-3. En vMix configura la salida RTMP de Owncast usando la dirección RTMP y la
-   clave de transmisión que aparecen en la configuración/interfaz de Owncast.
-   Estos datos son secretos: no los incluyas en capturas públicas ni los envíes
-   por chat. No adivines el puerto ni la clave; usa los valores mostrados por
-   tu instalación de Owncast.
-4. Inicia la salida en vMix y confirma que Owncast muestre el canal en vivo.
-5. Comprueba desde un navegador:
+--------------------------------
+1. Confirma que ZeroTier esté instalado y conectado en la PC Windows de vMix.
+2. Ambos equipos deben pertenecer a la misma red ZeroTier:
+   Network ID: f3797ba7a885b53d
+3. IPs ZeroTier actuales: servidor Ubuntu 10.242.75.43; PC vMix 10.242.75.76.
+   Si cambian, consulta ZeroTier Central o `sudo zerotier-cli listnetworks`.
+4. Desde PowerShell en Pampahasi comprueba el enlace:
+   ping 10.242.75.43
+5. Owncast escucha RTMP por defecto en TCP 1935. Se verificó en Ubuntu con:
+   sudo ss -lntp | grep 1935
+6. Configuración de destino en vMix:
+   URL RTMP: rtmp://10.242.75.43:1935/live
+   Stream key: introduce en vMix la clave vigente configurada en Owncast.
+   No guardes ni compartas la clave en esta guía.
+7. Inicia la transmisión en vMix y confirma que Owncast muestre el canal en vivo.
+8. Comprueba desde un navegador:
    https://tv.cineramatvbo.com/hls/stream.m3u8
    La lista debe comenzar con #EXTM3U.
-6. Comprueba la web:
+9. Comprueba la web:
    https://www.cineramatvbo.com
+
+No abras ni reenvíes el puerto 1935 del router hacia Internet. El envío RTMP
+debe ir por ZeroTier. La clave RTMP y la contraseña administrativa de Owncast
+son credenciales distintas; no incluyas ninguna en esta guía.
 
 IMPORTANTE SOBRE LA IP LOCAL EN EL PROYECTO
 ------------------------------------------
@@ -126,12 +152,16 @@ DNS Y DOMINIO
 SI NO FUNCIONA DESPUÉS DE LA MUDANZA
 -----------------------------------
 1. Confirma que vMix transmite y Owncast muestra señal en vivo.
-2. Confirma que Owncast responde HTTP 200 en localhost:8080.
-3. Confirma que Nginx responde HTTP 200 en localhost:8090/hls/stream.m3u8.
-4. Confirma que cloudflared está active y Healthy en el panel de Cloudflare.
-5. Comprueba que la ruta Published application de Cloudflare siga apuntando a:
+2. Comprueba ZeroTier ONLINE en ambos equipos y que Ubuntu esté autorizado en
+   la red f3797ba7a885b53d. Desde vMix, prueba `ping 10.242.75.43`.
+3. Confirma que Owncast responde HTTP 200 en localhost:8080.
+4. Confirma que Owncast escucha en TCP 1935 y que vMix usa
+   rtmp://10.242.75.43:1935/live con la clave correcta ingresada en vMix.
+5. Confirma que Nginx responde HTTP 200 en localhost:8090/hls/stream.m3u8.
+6. Confirma que cloudflared está active y Healthy en el panel de Cloudflare.
+7. Comprueba que la ruta Published application de Cloudflare siga apuntando a:
    tv.cineramatvbo.com -> http://127.0.0.1:8090
-6. Comprueba el HLS público y los DNS:
+8. Comprueba el HLS público y los DNS:
    resolvectl query tv.cineramatvbo.com
    curl -I https://tv.cineramatvbo.com/hls/stream.m3u8
 7. Si las consultas DNS fallan solo en una red, prueba desde datos móviles o
