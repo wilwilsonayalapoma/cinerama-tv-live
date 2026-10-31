@@ -47,8 +47,8 @@ class LivePlayer extends HTMLElement {
         const isLocal = ["localhost", "127.0.0.1"].includes(window.location.hostname);
 
         const stream = isLocal
-            ? "https://tv.cineramatvbo.com/hls/stream.m3u8"
-            : "/hls/stream.m3u8";
+            ? "http://192.168.100.86:8080/hls/stream.m3u8"
+            : "https://tv.cineramatvbo.com/hls/stream.m3u8";
 
         if (Hls.isSupported()) {
 

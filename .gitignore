@@ -13,3 +13,5 @@ node_modules/
 
 # Variables de entorno (para futuras versiones)
 .env
+# Local Netlify folder
+.netlify

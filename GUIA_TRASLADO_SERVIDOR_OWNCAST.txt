@@ -1,0 +1,142 @@
+GUIA PARA TRASLADAR CINERAMATV A OTRA CASA
+============================================================
+
+Arquitectura que está funcionando
+---------------------------------
+- Página web: Netlify. Dominio: https://www.cineramatvbo.com
+- Entrada de video: vMix en una PC Windows transmite a Owncast.
+- Servidor: Ubuntu 26.04.1 LTS ejecuta Owncast y Nginx.
+- Owncast escucha en el puerto 8080 dentro de la red local.
+- Nginx publica solo el HLS en 127.0.0.1:8090 y devuelve 404 en la raíz.
+- Cloudflare Tunnel conecta hacia http://127.0.0.1:8090 y da HTTPS público:
+  https://tv.cineramatvbo.com/hls/stream.m3u8
+- El DNS del dominio lo administra Cloudflare. El dominio sigue registrado en
+  Namecheap.
+
+IMPORTANTE: El túnel evita abrir puertos entrantes y no necesita una IP pública
+fija. Ubuntu debe tener Internet y cloudflared debe estar activo. La capacidad
+de espectadores depende de la velocidad de subida de Internet en la nueva casa.
+
+ANTES DE MOVER EL EQUIPO
+-----------------------
+1. No desinstales Owncast, Nginx ni cloudflared.
+2. Asegúrate de conocer las credenciales de acceso del Ubuntu y de tener acceso
+   a la cuenta de Cloudflare.
+3. No copies ni compartas el token del túnel en mensajes, capturas o repositorios.
+   El servicio existente guarda el token en /etc/cloudflared/token.
+4. Si es posible, apaga Ubuntu correctamente:
+   sudo poweroff
+5. En la nueva casa, conecta Ubuntu por cable Ethernet al router y enciéndelo.
+
+PRIMERA COMPROBACIÓN EN LA NUEVA RED
+------------------------------------
+Inicia sesión localmente o por SSH (la IP puede haber cambiado):
+  ip -br address
+  hostname -I
+
+Desde otra PC en el mismo router, conéctate usando la IP LAN nueva:
+  ssh cinerama@IP_LAN_NUEVA
+
+La IP LAN no tiene que ser 192.168.100.86. El túnel y el proxy usan localhost,
+por lo que normalmente no hace falta cambiar Nginx ni Cloudflare al mudarse.
+Para una IP LAN estable, crea una reserva DHCP en el router para Ubuntu.
+
+COMPROBAR SERVICIOS
+-------------------
+En Ubuntu ejecuta:
+  systemctl is-active owncast
+  systemctl is-active nginx
+  sudo systemctl is-active cloudflared
+
+Los tres deben responder "active". Si alguno no está activo:
+  sudo systemctl status owncast --no-pager
+  sudo systemctl status nginx --no-pager
+  sudo systemctl status cloudflared --no-pager
+
+Verifica Owncast y Nginx localmente:
+  curl -sS -o /dev/null -w 'Owncast HTTP %{http_code}\n' http://127.0.0.1:8080/hls/stream.m3u8
+  curl -sS -D - -o /dev/null http://127.0.0.1:8090/hls/stream.m3u8
+
+Se espera HTTP 200 para ambas. En la segunda respuesta debe haber un único
+Access-Control-Allow-Origin: *. La ruta raíz de Nginx está restringida y debe
+devolver 404:
+  curl -sS -o /dev/null -w 'Proxy raíz HTTP %{http_code}\n' http://127.0.0.1:8090/
+
+Verifica el túnel y el HLS público:
+  curl -sS -D - -o /dev/null https://tv.cineramatvbo.com/hls/stream.m3u8
+
+La respuesta pública esperada es HTTP 200. Si el DNS todavía no resuelve en
+Ubuntu pero la ruta está configurada, prueba temporalmente usando DNS público:
+  resolvectl query tv.cineramatvbo.com
+  sudo resolvectl flush-caches
+
+Si cloudflared está detenido:
+  sudo systemctl restart cloudflared
+  sudo systemctl status cloudflared --no-pager
+
+No ejecutes manualmente `cloudflared tunnel run --token ...` si el servicio ya
+está activo; eso puede arrancar una segunda instancia. No muestres el contenido
+de /etc/cloudflared/token.
+
+CONFIGURAR vMix EN LA PC WINDOWS
+-------------------------------
+1. Conecta la PC Windows de vMix a la misma red del router (preferiblemente por
+   cable Ethernet).
+2. Identifica la IP LAN nueva de Ubuntu con `hostname -I`.
+3. En vMix configura la salida RTMP de Owncast usando la dirección RTMP y la
+   clave de transmisión que aparecen en la configuración/interfaz de Owncast.
+   Estos datos son secretos: no los incluyas en capturas públicas ni los envíes
+   por chat. No adivines el puerto ni la clave; usa los valores mostrados por
+   tu instalación de Owncast.
+4. Inicia la salida en vMix y confirma que Owncast muestre el canal en vivo.
+5. Comprueba desde un navegador:
+   https://tv.cineramatvbo.com/hls/stream.m3u8
+   La lista debe comenzar con #EXTM3U.
+6. Comprueba la web:
+   https://www.cineramatvbo.com
+
+IMPORTANTE SOBRE LA IP LOCAL EN EL PROYECTO
+------------------------------------------
+El JavaScript actual usa esta URL cuando se abre la página desde localhost:
+  http://192.168.100.86:8080/hls/stream.m3u8
+
+Después de mudarte, si sigues probando la página desde XAMPP en localhost y la
+IP de Ubuntu cambió, actualiza esa IP en:
+  assets/js/components/player.js
+
+En producción el reproductor usa el hostname público tv.cineramatvbo.com, por
+lo que no requiere la IP LAN nueva. Publica los cambios del proyecto mediante
+Netlify CLI desde la carpeta del proyecto. Para una vista previa:
+  netlify deploy --dir .
+
+Para producción, solo después de probar el borrador:
+  netlify deploy --prod --dir .
+
+DNS Y DOMINIO
+------------
+- No cambies los nameservers de Cloudflare al mudarte.
+- No apuntes tv.cineramatvbo.com a la IP privada del hogar. El registro Tunnel
+  de Cloudflare ya enruta el hostname al túnel cinerama-owncast.
+- Conserva los registros MX y TXT del correo.
+- Los A de apex y www los gestiona Netlify según la configuración actual;
+  no los cambies por la IP LAN de Ubuntu.
+- El subdominio live no forma parte del flujo principal actual; no lo cambies
+  sin decidir qué servicio debe atenderlo.
+
+SI NO FUNCIONA DESPUÉS DE LA MUDANZA
+-----------------------------------
+1. Confirma que vMix transmite y Owncast muestra señal en vivo.
+2. Confirma que Owncast responde HTTP 200 en localhost:8080.
+3. Confirma que Nginx responde HTTP 200 en localhost:8090/hls/stream.m3u8.
+4. Confirma que cloudflared está active y Healthy en el panel de Cloudflare.
+5. Comprueba que la ruta Published application de Cloudflare siga apuntando a:
+   tv.cineramatvbo.com -> http://127.0.0.1:8090
+6. Comprueba el HLS público y los DNS:
+   resolvectl query tv.cineramatvbo.com
+   curl -I https://tv.cineramatvbo.com/hls/stream.m3u8
+7. Si las consultas DNS fallan solo en una red, prueba desde datos móviles o
+   consulta un DNS público; evita cambiar registros sin comprobar primero.
+
+El túnel Quick Tunnel trycloudflare.com fue solo para pruebas temporales. La
+configuración estable usa el túnel nombrado cinerama-owncast y el hostname
+tv.cineramatvbo.com.
